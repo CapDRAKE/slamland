@@ -23,7 +23,7 @@ public class Window extends JFrame implements ActionListener {
 	protected static int resultat = 0;
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
-	private JMenuItem parc, parc2, attraction, attraction2, visiteur, ajoutVisiteur;
+	private JMenuItem parc, parc2, attraction, attraction2, visiteur, ajoutVisiteur, restaurants, commerces, article, article1;
 	private JPanel panel;
 	private JLabel connected;
 	
@@ -96,6 +96,14 @@ public class Window extends JFrame implements ActionListener {
 			
 			
 			menu3 = new JMenu("Commerces");
+			restaurants = new JMenuItem("Liste des restaurents");
+			commerces = new JMenuItem("Liste des commerces");
+			article = new JMenuItem("Liste des articles");
+			article1 = new JMenuItem("Ajouter des articles");
+			
+			menu3.add(restaurants);
+			menu3.add(commerces);
+			
 			
 			//On add les menus
 			barre.add(menu);

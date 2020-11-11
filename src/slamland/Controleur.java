@@ -14,7 +14,8 @@ public class Controleur {
 	private static PreparedStatement statement;
 	private static ResultSet res;
 	
-
+	
+	//Méthode pour se connecter à la bdd
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -28,7 +29,8 @@ public class Controleur {
 			System.err.println("Driver non chargé " + e);
 		}
 	}
-
+	
+	//Méthode pour se déconnecter de la bdd
 	public static void deconnexionBdd() {
 		try {
 			connexion.close();
@@ -36,7 +38,8 @@ public class Controleur {
 			System.err.println("Erreur lors de la déconnexion " + e);
 		}
 	}
-
+	
+	//Méthode pour se connecter
 	public static boolean connexion(String login, String mdp) {
 		boolean rep = false;
 		connexionBdd();
@@ -58,6 +61,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthode pour obtenir la liste des parcs
 	public static Object[][] getLesParcs(String uneVille) {
 		connexionBdd();
 		try {
@@ -81,6 +85,7 @@ public class Controleur {
 
 	}
 	
+	//Méthode pour ajouter un parc
 	public static boolean ajouterParc(String nom, String ville) {
 		connexionBdd();
 		boolean rep = false;
