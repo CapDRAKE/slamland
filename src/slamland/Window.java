@@ -25,7 +25,6 @@ public class Window extends JFrame implements ActionListener {
 	private JMenu menu, menu2, menu3;
 	private JMenuItem parc, parc2, attraction, attraction2, visiteur, ajoutVisiteur, restaurants, commerces, article, article1;
 	private JPanel panel;
-	private JLabel connected;
 	
 	//Paramètres des pages
 	public Window() {
