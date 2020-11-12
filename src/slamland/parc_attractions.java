@@ -5,8 +5,8 @@ public class parc_attractions {
 	private static String Nom;
 	
 	public parc_attractions(String uneVille, String unNom) {
-		this.Ville = uneVille;
-		this.Nom = unNom;
+		parc_attractions.Ville = uneVille;
+		parc_attractions.Nom = unNom;
 	}
 	
 	public static String getUneVille() {

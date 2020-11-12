@@ -43,20 +43,20 @@ public class VueParc extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e){
 		if (e.getSource() == selectButton) {
 			String ville = userText.getText();
+			parcs = new ArrayList <parc_attractions>();
+			parcs = Controleur.getLesParcs(ville);
 			int taille = Controleur.getNbParcs(ville);
 			if(taille == 0) {
 				System.out.println("Il n'y a pas de parc pour cette ville");
 			}
 			else {
-			parcs = new ArrayList <parc_attractions>();
-			parcs = Controleur.getLesParcs(ville);
+
 			
 			listTableModel = new DefaultTableModel (lignes, colonnes);
 			listTableModel.addRow(new Object[] {"Ville", "Nom"});
 			
-			for(int i = 0; i<taille; i++) {
+			for(int i = 0; i < taille; i++) {
 				listTableModel.addRow(new Object[] {parcs.get(i).getUnNom(),parcs.get(i).getUneVille()});
-				
 			}
 			
 			listeParc = new JTable(listTableModel);
@@ -71,8 +71,10 @@ public class VueParc extends JPanel implements ActionListener {
 			//String[] entetes = {"Ville", "Nom du parc"};
 			//tableau = new JTable(Controleur.getLesParcs(ville), entetes);
 			//scrollpane = new JScrollPane(tableau);
-			this.add(listeParc);
 			this.revalidate();
+			this.add(listeParc);
+
+
 			}
 		}
 	}

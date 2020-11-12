@@ -20,7 +20,7 @@ public class Controleur {
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connexion =DriverManager.getConnection("jdbc:mysql://172.16.250.9/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "sio", "slam");
+			connexion =DriverManager.getConnection("jdbc:mysql://127.0.0.1/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
 			 st = connexion.createStatement();
 		}
 
@@ -108,18 +108,20 @@ public class Controleur {
 		String req = "SELECT nom, ville FROM Parc_attractions WHERE ville = '"+uneVille+"'";
 		parcs = new ArrayList <parc_attractions>();
 		try {
-			rs = statement.executeQuery(req);
-			String nom = rs.getString(1);
-			String ville = rs.getString(2);
+			rs = st.executeQuery(req);
 			while (rs.next()) {
+				String nom = rs.getString(1);
+				String ville = rs.getString(2);
 				 parcs.add(new parc_attractions(nom, ville));
 			}
+			System.out.println(parcs.size());
 			rs.close();
 		}
 		catch(SQLException erreur) {
-
+			System.out.println(erreur);
 		}
 		deconnexionBdd();
+
 		return parcs;
 
 	}
