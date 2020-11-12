@@ -37,7 +37,7 @@ public class VueListeAttraction extends JPanel implements ActionListener {
 			JScrollPane scrollpane = null;
 			JTable tableau = null;
 			String[] entetes = {"Ville", "Nom du parc"};
-			tableau = new JTable(Controleur.getLesParcs(ville), entetes);
+			//tableau = new JTable(Controleur.getLesParcs(ville), entetes);
 			scrollpane = new JScrollPane(tableau);
 			this.add(scrollpane);
 			this.revalidate();

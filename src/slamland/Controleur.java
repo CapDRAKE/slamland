@@ -8,7 +8,8 @@ public class Controleur {
 	private static Connection connexion;
 	private static Statement st;
 	private static ResultSet rs;
-	private static ArrayList <Object> parcs;
+	private static parc_attractions parc;
+	private static ArrayList <parc_attractions> parcs;
 	private static int i = 0;
 	private static Object[][] donnees = new Object[15][2];
 	private static PreparedStatement statement;
@@ -19,7 +20,7 @@ public class Controleur {
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connexion =DriverManager.getConnection("jdbc:mysql://127.0.0.1/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
+			connexion =DriverManager.getConnection("jdbc:mysql://172.16.250.9/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "sio", "slam");
 			 st = connexion.createStatement();
 		}
 
@@ -53,7 +54,7 @@ public class Controleur {
 				//String getLogin = res.getString("login");
 				rep = true;
 			}
-			res.close();
+			//res.close();
 			deconnexionBdd();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -62,26 +63,64 @@ public class Controleur {
 	}
 	
 	//Méthode pour obtenir la liste des parcs
-	public static Object[][] getLesParcs(String uneVille) {
-		connexionBdd();
-		try {
-			statement = connexion.prepareStatement("SELECT nom, ville FROM Parc_attractions WHERE ville = ?;");
-			statement.setString(1, uneVille);
-			rs = statement.executeQuery();
-			while (rs.next()) {
-				System.out.println("oui yes");
-				 donnees[i][1] = rs.getString(1);
-				 donnees[i][0] = rs.getString(2);
-				 i++;
+	//public static Object[][] getLesParcs(String uneVille) {
+		//connexionBdd();
+		//try {
+			//statement = connexion.prepareStatement("SELECT nom, ville FROM Parc_attractions WHERE ville = ?;");
+			//statement.setString(1, uneVille);
+			//rs = statement.executeQuery();
+			//while (rs.next()) {
+			//	System.out.println("oui yes");
+			//	 donnees[i][1] = rs.getString(1);
+			//	 donnees[i][0] = rs.getString(2);
+			//	 i++;
 				 
+			//}
+			//rs.close();
+		//}
+		//catch(SQLException erreur) {
+	    //	System.out.println("Mauvaise saisie");
+		//}
+		//deconnexionBdd();
+		//return donnees;
+
+	//}
+	public static int getNbParcs(String uneVille) {
+		connexionBdd();
+		String req = "SELECT COUNT(*) as nombre FROM Parc_attractions WHERE ville = '"+uneVille+"'";
+		int total = 0;
+		try {
+			rs = st.executeQuery(req);
+			if(rs.next()) {
+				total = rs.getInt("nombre");
+			}
+		}
+
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+
+		return total;
+	}
+	
+	public static ArrayList<parc_attractions> getLesParcs(String uneVille) {
+		connexionBdd();
+		String req = "SELECT nom, ville FROM Parc_attractions WHERE ville = '"+uneVille+"'";
+		parcs = new ArrayList <parc_attractions>();
+		try {
+			rs = statement.executeQuery(req);
+			String nom = rs.getString(1);
+			String ville = rs.getString(2);
+			while (rs.next()) {
+				 parcs.add(new parc_attractions(nom, ville));
 			}
 			rs.close();
 		}
 		catch(SQLException erreur) {
-	    	System.out.println("Mauvaise saisie");
+
 		}
 		deconnexionBdd();
-		return donnees;
+		return parcs;
 
 	}
 	
