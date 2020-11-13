@@ -19,7 +19,7 @@ public class VueParc extends JPanel implements ActionListener {
 	
 	public VueParc(ArrayList <parc_attractions> lesParcs) {
 		Object [][] parc = new Object[20][2];
-		String[] entetes = {"Nom parc", "Ville"};
+		String[] entetes = {"Nom parc", "Ville"}; 
 		
 		i=0;
 		while( i < lesParcs.size()) {

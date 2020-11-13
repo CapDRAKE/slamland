@@ -12,19 +12,21 @@ public class Window extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	//Déclaration des pages
-	private VueConnexion pageConnexion = new VueConnexion();
-	private VueAjouterParc pageAjouterParc = new VueAjouterParc();
+
 	private VueAjouterAttraction pageAjouterAttraction = new VueAjouterAttraction();
-	private VueListeAttraction pageAttraction = new VueListeAttraction();
-	private VueListeVisiteurs pageListeVisiteurs = new VueListeVisiteurs();
 	private VueAjouterVisiteurs pageAjouterVisiteurs = new VueAjouterVisiteurs();
 	
+	private VueConnexion pageConnexion = new VueConnexion();
+	private VueAjouterParc pageAjouterParc = new VueAjouterParc();
+	private VueListeVisiteurs pageListeVisiteurs = new VueListeVisiteurs(Controleur.getLesVisiteurs());
 	private VueParc pageParc = new VueParc(Controleur.getLesParcs());
+	private VueListeAttraction pageAttraction = new VueListeAttraction(Controleur.getLesAttractions());
 	protected static int resultat = 0;
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
 	private JMenuItem parc, parc2, attraction, attraction2, visiteur, ajoutVisiteur, restaurants, commerces, article, article1;
 	private JPanel panel;
+    private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
 	
 	//Paramètres des pages
 	public Window() {
@@ -108,6 +110,7 @@ public class Window extends JFrame implements ActionListener {
 			barre.add(menu);
 			barre.add(menu2);
 			barre.add(menu3);
+			barre.add(menuQuitter1);
 	
 			panel = new JPanel();
 			panel.add(barre);
@@ -132,8 +135,10 @@ public class Window extends JFrame implements ActionListener {
 	//L'action pour afficher les parcs
 	class ActionParc implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			pageParc = new VueParc(Controleur.getLesParcs());
-			setContentPane(pageParc);
+			if ( e.getSource() == parc) {
+				pageParc = new VueParc(Controleur.getLesParcs());
+				setContentPane(pageParc);
+			}
 			revalidate();
 		}
 	}
@@ -141,8 +146,10 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour ajouter un parc
 	class ActionAjouterParc implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			pageAjouterParc = new VueAjouterParc();
-			setContentPane(pageAjouterParc);
+			if ( e.getSource() == parc2) {
+				pageAjouterParc = new VueAjouterParc();
+				setContentPane(pageAjouterParc);
+			}
 			revalidate();
 		}
 	}
@@ -150,8 +157,10 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour afficher les attractions
 	class ActionListeAttraction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			pageAttraction = new VueListeAttraction();
-			setContentPane(pageAttraction);
+			if ( e.getSource() == attraction) {
+				pageAttraction = new VueListeAttraction(Controleur.getLesAttractions());
+				setContentPane(pageAttraction);
+			}
 			revalidate();
 		}
 	}
@@ -159,8 +168,10 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour ajouter une attraction
 	class ActionAjouterAttraction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			pageAjouterAttraction = new VueAjouterAttraction();
-			setContentPane(pageAjouterAttraction);
+			if ( e.getSource() == attraction2) {
+				pageAjouterAttraction = new VueAjouterAttraction();
+				setContentPane(pageAjouterAttraction);
+			}
 			revalidate();
 		}
 	}
@@ -168,8 +179,10 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour afficher la lises des visiteurs
 	class ActionListeVisiteurs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			pageListeVisiteurs = new VueListeVisiteurs();
-			setContentPane(pageListeVisiteurs);
+			if ( e.getSource() == visiteur) {
+				pageListeVisiteurs = new VueListeVisiteurs(Controleur.getLesVisiteurs());
+				setContentPane(pageListeVisiteurs);
+			}
 			revalidate();
 		}
 	}
@@ -180,6 +193,15 @@ public class Window extends JFrame implements ActionListener {
 			pageAjouterAttraction = new VueAjouterAttraction();
 			setContentPane(pageAjouterAttraction);
 			revalidate();
+		}
+	}
+	
+	//Action pour quitter l'application
+	class ActionQuitte implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			if ( e.getSource() == menuQuitter1 ) { 
+            	System.exit(1);
+			}
 		}
 	}
 }

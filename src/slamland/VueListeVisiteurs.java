@@ -1,46 +1,41 @@
 package slamland;
 import javax.swing.*;
+
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VueListeVisiteurs extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField userText;
-	private JButton selectButton;
-	private JLabel userLabel;
+	private static JTable listeVisiteur;
+	private int i;
+	private JScrollPane scrollpane;
 
-	public VueListeVisiteurs() {
+	public VueListeVisiteurs(ArrayList <visiteur> visiteurs) {
 
-		userLabel = new JLabel("Saisir le parc :");
-		userLabel.setBounds(29, 100, 80, 25);
-		this.add(userLabel);
-
-		userText = new JTextField(20);
-		userText.setBounds(110, 10, 160, 25);
-		this.add(userText);
+		Object [][] lesVisiteurs = new Object[20][3];
+		String[] entetes = {"Nom", "Prenom", "Date de naissance"};
 		
-		selectButton = new JButton("Selectionner");
-		selectButton.setBounds(30, 80, 150, 25);
-		this.add(selectButton);
+		int i=0;
+		while( i < visiteurs.size()) {
+			lesVisiteurs[i][0] = visiteurs.get(i).getNom();
+			lesVisiteurs[i][1] = visiteurs.get(i).getPrenom();
+			lesVisiteurs[i][2] = visiteurs.get(i).getDateNaiss();
+			i++;
+		}
+		listeVisiteur = new JTable(lesVisiteurs, entetes);
+		scrollpane = new JScrollPane(listeVisiteur);
 		
-		selectButton.addActionListener(this);
-		
-		setVisible(true);
+		this.add(scrollpane, BorderLayout.CENTER);
 	}
 
-	public void actionPerformed(ActionEvent e){
-		if (e.getSource() == selectButton) {
-			String ville = userText.getText();
-			JScrollPane scrollpane = null;
-			JTable tableau = null;
-			String[] entetes = {"Ville", "Nom du parc"};
-			//tableau = new JTable(Controleur.getLesParcs(ville), entetes);
-			scrollpane = new JScrollPane(tableau);
-			this.add(scrollpane);
-			this.revalidate();
-		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

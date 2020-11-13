@@ -1,46 +1,41 @@
 package slamland;
 import javax.swing.*;
+
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class VueListeAttraction extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField userText;
-	private JButton selectButton;
-	private JLabel userLabel;
+	private static JTable listeParc;
+	private int i;
+	private JScrollPane scrollpane;
 
-	public VueListeAttraction() {
-
-		userLabel = new JLabel("Saisir le parc :");
-		userLabel.setBounds(29, 100, 80, 25);
-		this.add(userLabel);
-
-		userText = new JTextField(20);
-		userText.setBounds(110, 10, 160, 25);
-		this.add(userText);
+	public VueListeAttraction(ArrayList <attractions> attractions) {
+		Object [][] lesAttractions = new Object[20][4];
+		String[] entetes = {"Nom attraction", "Capacitée max", "Duree", "Prix"};
 		
-		selectButton = new JButton("Selectionner");
-		selectButton.setBounds(30, 80, 150, 25);
-		this.add(selectButton);
+		i=0;
+		while( i < attractions.size()) {
+			lesAttractions[i][0] = attractions.get(i).getNom();
+			lesAttractions[i][1] = attractions.get(i).getCapacite();
+			lesAttractions[i][2] = attractions.get(i).getDuree();
+			lesAttractions[i][3] = attractions.get(i).getPrix();
+			i++;
+		}
+		listeParc = new JTable(lesAttractions, entetes);
+		scrollpane = new JScrollPane(listeParc);
 		
-		selectButton.addActionListener(this);
-		
-		setVisible(true);
+		this.add(scrollpane, BorderLayout.CENTER);
 	}
 
-	public void actionPerformed(ActionEvent e){
-		if (e.getSource() == selectButton) {
-			String ville = userText.getText();
-			JScrollPane scrollpane = null;
-			JTable tableau = null;
-			String[] entetes = {"Ville", "Nom du parc"};
-			//tableau = new JTable(Controleur.getLesParcs(ville), entetes);
-			scrollpane = new JScrollPane(tableau);
-			this.add(scrollpane);
-			this.revalidate();
-		}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

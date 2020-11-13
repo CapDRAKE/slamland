@@ -18,7 +18,7 @@ public class Controleur {
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connexion =DriverManager.getConnection("jdbc:mysql://172.16.250.9/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "sio", "slam");
+			connexion =DriverManager.getConnection("jdbc:mysql://127.0.0.1/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
 			 st = connexion.createStatement();
 		}
 
@@ -60,29 +60,6 @@ public class Controleur {
 		return rep;
 	}
 	
-	//Méthode pour obtenir la liste des parcs
-	//public static Object[][] getLesParcs(String uneVille) {
-		//connexionBdd();
-		//try {
-			//statement = connexion.prepareStatement("SELECT nom, ville FROM Parc_attractions WHERE ville = ?;");
-			//statement.setString(1, uneVille);
-			//rs = statement.executeQuery();
-			//while (rs.next()) {
-			//	System.out.println("oui yes");
-			//	 donnees[i][1] = rs.getString(1);
-			//	 donnees[i][0] = rs.getString(2);
-			//	 i++;
-				 
-			//}
-			//rs.close();
-		//}
-		//catch(SQLException erreur) {
-	    //	System.out.println("Mauvaise saisie");
-		//}
-		//deconnexionBdd();
-		//return donnees;
-
-	//}
 	public static ArrayList<parc_attractions> getLesParcs() {
 		connexionBdd();
 		
@@ -110,6 +87,7 @@ public class Controleur {
 				parc = new parc_attractions(ville, nom);
 				parcs.add(parc);
 			}
+			System.out.println(parcs.size());
 			rs.close();
 		}
 		catch(SQLException erreur) {
@@ -118,6 +96,86 @@ public class Controleur {
 		deconnexionBdd();
 
 		return parcs;
+
+	}
+	
+	public static ArrayList<attractions> getLesAttractions() {
+		connexionBdd();
+		
+		//Déclaration des variables des getStrings
+		String nom;
+		int capacite;
+		int duree;
+		int prix;
+		
+		//Déclaration du parc
+		attractions lesAttractions;
+		
+		//Déclaration de la requête
+		String req = "SELECT * FROM attraction";
+		
+		//Déclaration de la liste des parcs
+		ArrayList <attractions> attraction;
+		attraction = new ArrayList <attractions>();
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				nom = rs.getString(2);
+				capacite = rs.getInt(3);
+				duree = rs.getInt(4);
+				prix = rs.getInt(5);
+				lesAttractions = new attractions(nom, capacite, duree, prix);
+				attraction.add(lesAttractions);
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+
+		return attraction;
+
+	}
+	
+	public static ArrayList<visiteur> getLesVisiteurs() {
+		connexionBdd();
+		
+		//Déclaration des variables des getStrings
+		String nom;
+		String prenom;
+		Date dateNaiss;
+		
+		//Déclaration du parc
+		visiteur lesVisiteurs;
+		
+		//Déclaration de la requête
+		String req = "SELECT * FROM visiteur";
+		
+		//Déclaration de la liste des parcs
+		ArrayList <visiteur> visiteur;
+		visiteur = new ArrayList <visiteur>();
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				nom = rs.getString(2);
+				prenom = rs.getString(3);
+				dateNaiss = rs.getDate(4);
+				lesVisiteurs = new visiteur(nom, prenom, dateNaiss);
+				visiteur.add(lesVisiteurs);
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+
+		return visiteur;
 
 	}
 	
