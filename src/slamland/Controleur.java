@@ -8,8 +8,6 @@ public class Controleur {
 	private static Connection connexion;
 	private static Statement st;
 	private static ResultSet rs;
-	private static parc_attractions parc;
-	private static ArrayList <parc_attractions> parcs;
 	private static int i = 0;
 	private static Object[][] donnees = new Object[15][2];
 	private static PreparedStatement statement;
@@ -20,7 +18,7 @@ public class Controleur {
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connexion =DriverManager.getConnection("jdbc:mysql://127.0.0.1/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
+			connexion =DriverManager.getConnection("jdbc:mysql://172.16.250.9/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "sio", "slam");
 			 st = connexion.createStatement();
 		}
 
@@ -85,34 +83,26 @@ public class Controleur {
 		//return donnees;
 
 	//}
-	public static int getNbParcs(String uneVille) {
+	public static ArrayList<parc_attractions> getLesParcs() {
 		connexionBdd();
-		String req = "SELECT COUNT(*) as nombre FROM Parc_attractions WHERE ville = '"+uneVille+"'";
-		int total = 0;
-		try {
-			rs = st.executeQuery(req);
-			if(rs.next()) {
-				total = rs.getInt("nombre");
-			}
-		}
-
-		catch(SQLException erreur) {
-			System.out.println(erreur);
-		}
-
-		return total;
-	}
-	
-	public static ArrayList<parc_attractions> getLesParcs(String uneVille) {
-		connexionBdd();
-		String req = "SELECT nom, ville FROM Parc_attractions WHERE ville = '"+uneVille+"'";
+		
+		parc_attractions parc;
+		String req = "SELECT * FROM Parc_attractions";
+		ArrayList <parc_attractions> parcs;
 		parcs = new ArrayList <parc_attractions>();
+		
 		try {
 			rs = st.executeQuery(req);
 			while (rs.next()) {
-				String nom = rs.getString(1);
-				String ville = rs.getString(2);
-				 parcs.add(new parc_attractions(nom, ville));
+				String nom = rs.getString(2);
+				String ville = rs.getString(3);
+				System.out.println(nom);
+				parc = new parc_attractions(ville, nom);
+				parcs.add(parc);
+				System.out.println(parcs.size());
+			}
+			for(i=0; i<parcs.size(); i++) {
+				System.out.println(parcs.get(i).getUnNom());
 			}
 			System.out.println(parcs.size());
 			rs.close();
@@ -131,7 +121,7 @@ public class Controleur {
 		connexionBdd();
 		boolean rep = false;
 		try {
-			PreparedStatement statement = connexion.prepareStatement("insert into parc_attractions (nom, ville) values (?, ?);");
+			PreparedStatement statement = connexion.prepareStatement("insert into Parc_attractions (nom, ville) values (?, ?);");
 			statement.setString(1,  nom);
 			statement.setString(2,  ville);
 			int nbLignes = statement.executeUpdate();

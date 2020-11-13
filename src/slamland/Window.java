@@ -19,7 +19,7 @@ public class Window extends JFrame implements ActionListener {
 	private VueListeVisiteurs pageListeVisiteurs = new VueListeVisiteurs();
 	private VueAjouterVisiteurs pageAjouterVisiteurs = new VueAjouterVisiteurs();
 	
-	private VueParc pageParc = new VueParc();
+	private VueParc pageParc = new VueParc(Controleur.getLesParcs());
 	protected static int resultat = 0;
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
@@ -132,7 +132,7 @@ public class Window extends JFrame implements ActionListener {
 	//L'action pour afficher les parcs
 	class ActionParc implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			pageParc = new VueParc();
+			pageParc = new VueParc(Controleur.getLesParcs());
 			setContentPane(pageParc);
 			revalidate();
 		}

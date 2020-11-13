@@ -1,25 +1,25 @@
 package slamland;
 
 public class parc_attractions {
-	private static String Ville;
-	private static String Nom;
+	private String Ville;
+	private String Nom;
 	
 	public parc_attractions(String uneVille, String unNom) {
-		parc_attractions.Ville = uneVille;
-		parc_attractions.Nom = unNom;
+		this.Ville = uneVille;
+		this.Nom = unNom;
 	}
 	
-	public static String getUneVille() {
+	public String getUneVille() {
 		return Ville;
 	}
-	public static void setUneVille(String uneVille) {
-		parc_attractions.Ville = uneVille;
+	public void setUneVille(String uneVille) {
+		this.Ville = uneVille;
 	}
-	public static String getUnNom() {
+	public String getUnNom() {
 		return Nom;
 	}
-	public static void setUnNom(String unNom) {
-		parc_attractions.Nom = unNom;
+	public void setUnNom(String unNom) {
+		this.Nom = unNom;
 	}
 	
 	
