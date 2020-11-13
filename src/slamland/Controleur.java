@@ -86,25 +86,30 @@ public class Controleur {
 	public static ArrayList<parc_attractions> getLesParcs() {
 		connexionBdd();
 		
+		//Déclaration des variables des getStrings
+		String nom;
+		String ville;
+		
+		//Déclaration du parc
 		parc_attractions parc;
+		
+		//Déclaration de la requête
 		String req = "SELECT * FROM Parc_attractions";
+		
+		//Déclaration de la liste des parcs
 		ArrayList <parc_attractions> parcs;
 		parcs = new ArrayList <parc_attractions>();
 		
 		try {
+			//On execute 
 			rs = st.executeQuery(req);
 			while (rs.next()) {
-				String nom = rs.getString(2);
-				String ville = rs.getString(3);
+				nom = rs.getString(2);
+				ville = rs.getString(3);
 				System.out.println(nom);
 				parc = new parc_attractions(ville, nom);
 				parcs.add(parc);
-				System.out.println(parcs.size());
 			}
-			for(i=0; i<parcs.size(); i++) {
-				System.out.println(parcs.get(i).getUnNom());
-			}
-			System.out.println(parcs.size());
 			rs.close();
 		}
 		catch(SQLException erreur) {
