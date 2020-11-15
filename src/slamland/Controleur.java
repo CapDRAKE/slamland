@@ -83,11 +83,9 @@ public class Controleur {
 			while (rs.next()) {
 				nom = rs.getString(2);
 				ville = rs.getString(3);
-				System.out.println(nom);
 				parc = new parc_attractions(ville, nom);
 				parcs.add(parc);
 			}
-			System.out.println(parcs.size());
 			rs.close();
 		}
 		catch(SQLException erreur) {
@@ -178,6 +176,83 @@ public class Controleur {
 		return visiteur;
 
 	}
+	
+	public static ArrayList<restaurant> getLesRestaurants() {
+		connexionBdd();
+		
+		//Déclaration des variables des getStrings
+		String nom;
+		int capacite;
+		int nbTables;
+		
+		//Déclaration du parc
+		restaurant lesRestaurants;
+		
+		//Déclaration de la requête
+		String req = "SELECT * FROM restaurants";
+		
+		//Déclaration de la liste des parcs
+		ArrayList <restaurant> restaurant;
+		restaurant = new ArrayList <restaurant>();
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				nom = rs.getString(2);
+				capacite = rs.getInt(3);
+				nbTables = rs.getInt(4);
+				lesRestaurants = new restaurant(nom, capacite, nbTables);
+				restaurant.add(lesRestaurants);
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+
+		return restaurant;
+
+	}
+	
+	public static ArrayList<magasin> getLesMagasins() {
+		connexionBdd();
+		
+		//Déclaration des variables des getStrings
+		String nom;
+		String type;
+		
+		//Déclaration du parc
+		magasin lesMagasins;
+		
+		//Déclaration de la requête
+		String req = "SELECT commerce.nom, magasin.type_magasin FROM commerce, magasin WHERE commerce.Id_Commerce = magasin.Id_Commerce";
+		
+		//Déclaration de la liste des parcs
+		ArrayList <magasin> magasin;
+		magasin = new ArrayList <magasin>();
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				nom = rs.getString(1);
+				type = rs.getString(2);
+				lesMagasins = new magasin(nom, type);
+				magasin.add(lesMagasins);
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+
+		return magasin;
+
+	}
+	
 	
 	//Méthode pour ajouter un parc
 	public static boolean ajouterParc(String nom, String ville) {

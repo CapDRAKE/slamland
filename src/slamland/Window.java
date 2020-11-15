@@ -18,13 +18,15 @@ public class Window extends JFrame implements ActionListener {
 	
 	private VueConnexion pageConnexion = new VueConnexion();
 	private VueAjouterParc pageAjouterParc = new VueAjouterParc();
+	private VueListeMagasin pageListeMagasin = new VueListeMagasin(Controleur.getLesMagasins());
+	private VueListeRestaurant pageListeRestaurant = new VueListeRestaurant(Controleur.getLesRestaurants());
 	private VueListeVisiteurs pageListeVisiteurs = new VueListeVisiteurs(Controleur.getLesVisiteurs());
 	private VueParc pageParc = new VueParc(Controleur.getLesParcs());
 	private VueListeAttraction pageAttraction = new VueListeAttraction(Controleur.getLesAttractions());
 	protected static int resultat = 0;
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
-	private JMenuItem parc, parc2, attraction, attraction2, visiteur, ajoutVisiteur, restaurants, commerces, article, article1;
+	private JMenuItem parc, parc2, attraction, attraction2, visiteur, ajoutVisiteur, supprimerVisiteur, restaurants, commerces, article, article1;
 	private JPanel panel;
     private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
 	
@@ -85,10 +87,12 @@ public class Window extends JFrame implements ActionListener {
 			//Sous-menu
 			visiteur = new JMenuItem("Liste des visiteurs");
 			ajoutVisiteur = new JMenuItem("Ajouter des visiteurs");
+			supprimerVisiteur = new JMenuItem("Supprimer des visiteurs");
 			
 			//Les adds
 			menu2.add(visiteur);
 			menu2.add(ajoutVisiteur);
+			menu2.add(supprimerVisiteur);
 			
 			//Les actions
 			visiteur.addActionListener(new ActionListeVisiteurs());
@@ -97,13 +101,17 @@ public class Window extends JFrame implements ActionListener {
 			
 			
 			menu3 = new JMenu("Commerces");
-			restaurants = new JMenuItem("Liste des restaurents");
+			restaurants = new JMenuItem("Liste des restaurants");
 			commerces = new JMenuItem("Liste des commerces");
 			article = new JMenuItem("Liste des articles");
 			article1 = new JMenuItem("Ajouter des articles");
+			restaurants.addActionListener(new ActionListeRestaurant());
+			commerces.addActionListener(new ActionListeMagasins());
 			
 			menu3.add(restaurants);
 			menu3.add(commerces);
+			
+			menuQuitter1.addActionListener(new ActionQuitte());
 			
 			
 			//On add les menus
@@ -192,6 +200,24 @@ public class Window extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			pageAjouterAttraction = new VueAjouterAttraction();
 			setContentPane(pageAjouterAttraction);
+			revalidate();
+		}
+	}
+	
+	//Action pour afficher la liste des restaurants
+	class ActionListeRestaurant implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			pageListeRestaurant = new VueListeRestaurant(Controleur.getLesRestaurants());
+			setContentPane(pageListeRestaurant);
+			revalidate();
+		}
+	}
+	
+	//Action pour afficher la liste des magasins
+	class ActionListeMagasins implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			pageListeMagasin = new VueListeMagasin(Controleur.getLesMagasins());
+			setContentPane(pageListeMagasin);
 			revalidate();
 		}
 	}
