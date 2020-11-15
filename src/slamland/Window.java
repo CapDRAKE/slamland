@@ -64,20 +64,16 @@ public class Window extends JFrame implements ActionListener {
 			parc = new JMenuItem("Liste des Parcs");
 			parc2 = new JMenuItem("Ajouter un Parc");
 			attraction = new JMenuItem("Liste des attractions");
-			attraction2 = new JMenuItem("Ajouter une attraction");
 			
 			//Les adds
 			menu.add(parc);
 			menu.add(parc2);
 			menu.add(attraction);
-			menu.add(attraction2);
 			
 			//les actions
 			parc.addActionListener(new ActionParc());
 			parc2.addActionListener(new ActionAjouterParc());
 			attraction.addActionListener(new ActionListeAttraction());
-			attraction2.addActionListener(new ActionAjouterAttraction());
-			
 			
 			
 			//Menu pour la gestion des visiteurs
@@ -88,6 +84,7 @@ public class Window extends JFrame implements ActionListener {
 			visiteur = new JMenuItem("Liste des visiteurs");
 			ajoutVisiteur = new JMenuItem("Ajouter des visiteurs");
 			supprimerVisiteur = new JMenuItem("Supprimer des visiteurs");
+			
 			
 			//Les adds
 			menu2.add(visiteur);
@@ -173,17 +170,6 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 	
-	//Action pour ajouter une attraction
-	class ActionAjouterAttraction implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if ( e.getSource() == attraction2) {
-				pageAjouterAttraction = new VueAjouterAttraction();
-				setContentPane(pageAjouterAttraction);
-			}
-			revalidate();
-		}
-	}
-	
 	//Action pour afficher la lises des visiteurs
 	class ActionListeVisiteurs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -198,9 +184,9 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour ajouter un visiteur
 	class ActionAjouterVisiteurs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			pageAjouterAttraction = new VueAjouterAttraction();
-			setContentPane(pageAjouterAttraction);
-			revalidate();
+			//pageAjouterAttraction = new VueAjouterAttraction();
+			//setContentPane(pageAjouterAttraction);
+			//revalidate();
 		}
 	}
 	
