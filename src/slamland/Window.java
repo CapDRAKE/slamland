@@ -13,11 +13,13 @@ public class Window extends JFrame implements ActionListener {
 	
 	//Déclaration des pages
 
-	private VueAjouterAttraction pageAjouterAttraction = new VueAjouterAttraction();
 	private VueAjouterVisiteurs pageAjouterVisiteurs = new VueAjouterVisiteurs();
 	
+	private VueListeXML pageXML = new VueListeXML();
 	private VueConnexion pageConnexion = new VueConnexion();
 	private VueAjouterParc pageAjouterParc = new VueAjouterParc();
+	private VueAjouterVisiteurs pageAjoutVisiteur = new VueAjouterVisiteurs();
+	private VueSupprimerVisiteur pageSupprimerVisiteur = new VueSupprimerVisiteur();
 	private VueListeMagasin pageListeMagasin = new VueListeMagasin(Controleur.getLesMagasins());
 	private VueListeRestaurant pageListeRestaurant = new VueListeRestaurant(Controleur.getLesRestaurants());
 	private VueListeVisiteurs pageListeVisiteurs = new VueListeVisiteurs(Controleur.getLesVisiteurs());
@@ -26,7 +28,7 @@ public class Window extends JFrame implements ActionListener {
 	protected static int resultat = 0;
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
-	private JMenuItem parc, parc2, attraction, attraction2, visiteur, ajoutVisiteur, supprimerVisiteur, restaurants, commerces, article, article1;
+	private JMenuItem parc, parc2, attraction, attraction2, attractionxml, visiteur, ajoutVisiteur, supprimerVisiteur, restaurants, commerces, article, article1;
 	private JPanel panel;
     private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
 	
@@ -64,16 +66,19 @@ public class Window extends JFrame implements ActionListener {
 			parc = new JMenuItem("Liste des Parcs");
 			parc2 = new JMenuItem("Ajouter un Parc");
 			attraction = new JMenuItem("Liste des attractions");
+			attractionxml = new JMenuItem("Liste des attractions format XML");
 			
 			//Les adds
 			menu.add(parc);
 			menu.add(parc2);
 			menu.add(attraction);
+			menu.add(attractionxml);
 			
 			//les actions
 			parc.addActionListener(new ActionParc());
 			parc2.addActionListener(new ActionAjouterParc());
 			attraction.addActionListener(new ActionListeAttraction());
+			attractionxml.addActionListener(new ActionListeXML());
 			
 			
 			//Menu pour la gestion des visiteurs
@@ -94,6 +99,7 @@ public class Window extends JFrame implements ActionListener {
 			//Les actions
 			visiteur.addActionListener(new ActionListeVisiteurs());
 			ajoutVisiteur.addActionListener(new ActionAjouterVisiteurs());
+			supprimerVisiteur.addActionListener(new ActionSupprimerVisiteurs());
 			
 			
 			
@@ -184,9 +190,18 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour ajouter un visiteur
 	class ActionAjouterVisiteurs implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			//pageAjouterAttraction = new VueAjouterAttraction();
-			//setContentPane(pageAjouterAttraction);
-			//revalidate();
+			pageAjouterVisiteurs = new VueAjouterVisiteurs();
+			setContentPane(pageAjouterVisiteurs);
+			revalidate();
+		}
+	}
+	
+	//Action pour supprimer un visiteur
+	class ActionSupprimerVisiteurs implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			pageSupprimerVisiteur = new VueSupprimerVisiteur();
+			setContentPane(pageSupprimerVisiteur);
+			revalidate();
 		}
 	}
 	
@@ -204,6 +219,15 @@ public class Window extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			pageListeMagasin = new VueListeMagasin(Controleur.getLesMagasins());
 			setContentPane(pageListeMagasin);
+			revalidate();
+		}
+	}
+	
+	//Action pour afficher la liste d'attraction au format XML
+	class ActionListeXML implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			pageXML = new VueListeXML();
+			setContentPane(pageXML);
 			revalidate();
 		}
 	}

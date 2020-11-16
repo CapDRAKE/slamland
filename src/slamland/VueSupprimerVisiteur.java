@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class VueAjouterVisiteurs extends JPanel implements ActionListener {
+public class VueSupprimerVisiteur extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -15,9 +15,9 @@ public class VueAjouterVisiteurs extends JPanel implements ActionListener {
 	private JButton selectButton;
 	private JLabel userLabel, userLabel2, registered;
 
-	public VueAjouterVisiteurs() {
+	public VueSupprimerVisiteur() {
 
-		userLabel = new JLabel("Nom du visiteur:");
+		userLabel = new JLabel("Nom du visiteur à supprimer:");
 		userLabel.setBounds(29, 100, 80, 25);
 		this.add(userLabel);
 		
@@ -25,23 +25,7 @@ public class VueAjouterVisiteurs extends JPanel implements ActionListener {
 		userText.setBounds(110, 10, 160, 25);
 		this.add(userText);
 		
-		userLabel = new JLabel("Prenom du visiteur :");
-		userLabel.setBounds(29, 100, 80, 25);
-		this.add(userLabel);
-		
-		userText2 = new JTextField(20);
-		userText2.setBounds(110, 10, 160, 25);
-		this.add(userText2);
-		
-		userLabel = new JLabel("Date de naissance du visiteur :");
-		userLabel.setBounds(29, 100, 80, 25);
-		this.add(userLabel);
-		
-		userText3 = new JTextField(20);
-		userText3.setBounds(110, 10, 160, 25);
-		this.add(userText3);
-		
-		selectButton = new JButton("Ajouter");
+		selectButton = new JButton("Supprimer");
 		selectButton.setBounds(30, 80, 150, 25);
 		this.add(selectButton);
 		
@@ -52,7 +36,7 @@ public class VueAjouterVisiteurs extends JPanel implements ActionListener {
 	}
 	
 	public void victoire() {
-		registered = new JLabel("Inscription réussie");
+		registered = new JLabel("Suppression  réussie");
 		registered.setBounds(25, 80, 150, 25);
 		this.add(registered);
 		revalidate();
@@ -61,10 +45,7 @@ public class VueAjouterVisiteurs extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e){
 		if (e.getSource() == selectButton) {
 			String nom = userText.getText();
-			String prenom = userText2.getText();
-			String date = userText3.getText();
-			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
-			if (Controleur.ajouterVisiteur(nom, prenom, date)) {
+			if (Controleur.supprimerVisiteur(nom)) {
 				victoire();
 			}
 			this.revalidate();

@@ -271,6 +271,76 @@ public class Controleur {
 		return rep;
 	}
 	
+	public static boolean ajouterVisiteur(String nom, String prenom,String uneDate) {
+		connexionBdd();
+		boolean rep = false;
+		try {
+			PreparedStatement statement = connexion.prepareStatement("insert into visiteur (nom, prenom, dateNaiss) values (?, ?, ?);");
+			statement.setString(1,  nom);
+			statement.setString(2,  prenom);
+			statement.setString(3, uneDate);
+			int nbLignes = statement.executeUpdate();
+			rep = true;
+			deconnexionBdd();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rep;
+	}
+	
+	public static boolean supprimerVisiteur(String nom) {
+		connexionBdd();
+		boolean rep = false;
+		try {
+			PreparedStatement statement = connexion.prepareStatement("DELETE FROM visiteur WHERE nom = ?;");
+			statement.setString(1,  nom);
+			int nbLignes = statement.executeUpdate();
+			rep = true;
+			deconnexionBdd();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rep;
+	}
+	
+	public static String toXML() {
+		connexionBdd();
+		String XML;
+		String nom;
+		String nomAttraction;
+		int capacite;
+		int duree;
+		int prix;
+		
+		String req = "SELECT parc_attractions.nom, attraction.nom, attraction.capacite_max, attraction.duree, attraction.prix FROM attraction, parc_attractions WHERE attraction.Id_Parc_attractions = parc_attractions.Id_Parc_attractions;";
+		
+		XML = "<?XML version'1.0' encading='UTF-8'?>";
+		//Déclaration de la liste des parcs
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				nom = rs.getString(1);
+				nomAttraction = rs.getString(2);
+				capacite = rs.getInt(3);
+				duree = rs.getInt(4);
+				prix = rs.getInt(5);
+
+				XML = XML + "\n<Parc>" + nom + "\n";
+				XML = XML + "<Nom>" + nomAttraction + "</Nom>\n";
+				XML = XML + "<Capacite>" + capacite + "</Capacite>\n";
+				XML = XML + "<Duree>" + duree + "</Duree>\n";
+				XML = XML + "<Prix>" + prix + "</Prix>\n";
+				XML = XML + "</Parc>";
+			}
+			rs.close();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return XML;
+	}
 	
 
 }
