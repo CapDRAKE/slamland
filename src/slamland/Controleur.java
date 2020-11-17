@@ -352,7 +352,7 @@ public class Controleur {
 		try {
 			//On execute 
 			rs = st.executeQuery(req);
-			if (rs.next()) {
+			while (rs.next()) {
 				rep = true;
 			}
 			rs.close();
@@ -363,6 +363,150 @@ public class Controleur {
 		deconnexionBdd();
 		
 		
+		return rep;
+	}
+	
+	public static ArrayList<article> getLesArticles() {
+		connexionBdd();
+		
+		//Déclaration des variables des getStrings
+		String nom;
+		int prix;
+		
+		//Déclaration du parc
+		article lesArticles;
+		
+		//Déclaration de la requête
+		String req = "SELECT nom, prix FROM articles";
+		
+		//Déclaration de la liste des parcs
+		ArrayList <article> articles;
+		articles = new ArrayList <article>();
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				nom = rs.getString(1);
+				prix = rs.getInt(2);
+				lesArticles = new article(nom, prix);
+				articles.add(lesArticles);
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+
+		return articles;
+
+	}
+	
+	public static boolean verifParc(String nom) {
+		boolean rep = false;
+		
+		connexionBdd();
+		//Déclaration de la requête
+		String req = "SELECT nom FROM parc_attractions WHERE nom = '"+nom+"'";
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				rep = true;
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+		
+		
+		return rep;
+	}
+	
+	public static int trouverParc(String unNom) {
+		int id = 0;
+		
+		connexionBdd();
+		//Déclaration de la requête
+		String req = "SELECT Id_Parc_attractions FROM parc_attractions WHERE nom = '"+unNom+"'";
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				id = rs.getInt(1);
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+			
+		return id;
+	}
+	
+	public static boolean ajouterAttraction(String nom, String capacite, String duree, String prix, int id) {
+		connexionBdd();
+		boolean rep = false;
+		try {
+			PreparedStatement statement = connexion.prepareStatement("insert into attraction (nom, capacite_max, duree, prix, Id_Parc_attractions) values (?, ?, ?, ?, ?);");
+			statement.setString(1,  nom);
+			statement.setString(2,  capacite);
+			statement.setString(3, duree);
+			statement.setString(4, prix);
+			statement.setInt(5, id);
+			int nbLignes = statement.executeUpdate();
+			rep = true;
+			deconnexionBdd();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rep;
+	}
+	
+	public static boolean verifAttraction(String nom) {
+		boolean rep = false;
+		
+		connexionBdd();
+		//Déclaration de la requête
+		String req = "SELECT * FROM attraction WHERE nom = '"+nom+"'";
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				rep = true;
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+		
+		
+		return rep;
+	}
+	
+	public static boolean supprimerAttraction(String nom) {
+		connexionBdd();
+		boolean rep = false;
+		try {
+			PreparedStatement statement = connexion.prepareStatement("DELETE FROM attraction WHERE nom = ?;");
+			statement.setString(1,  nom);
+			int nbLignes = statement.executeUpdate();
+			if(nbLignes != 0) {
+				rep = true;
+			}
+			deconnexionBdd();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return rep;
 	}
 	

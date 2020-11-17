@@ -23,6 +23,11 @@ public class Window extends JFrame implements ActionListener {
 	private VueListeVisiteurs pageListeVisiteurs = new VueListeVisiteurs(Controleur.getLesVisiteurs());
 	private VueParc pageParc = new VueParc(Controleur.getLesParcs());
 	private VueListeAttraction pageAttraction = new VueListeAttraction(Controleur.getLesAttractions());
+	private VueRerchercherVisiteur pageRecherche = new VueRerchercherVisiteur();
+	private VueListeArticle pageArticle = new VueListeArticle(Controleur.getLesArticles());
+	private VueAjoutAttraction pageAjoutA = new VueAjoutAttraction();
+	private VueSuppAttraction pageSupp = new VueSuppAttraction();
+	private VueRechercheAttraction pageRechAttraction = new VueRechercheAttraction();
 	
 	
 	
@@ -31,7 +36,7 @@ public class Window extends JFrame implements ActionListener {
 	//Déclarations des éléments du panel
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
-	private JMenuItem parc, parc2, attraction, attraction2, attractionxml, visiteur, ajoutVisiteur, supprimerVisiteur, verifVisiteur, restaurants, commerces, article, article1;
+	private JMenuItem parc, parc2, attraction, attraction2, attraction3, attraction4, attractionxml, visiteur, ajoutVisiteur, supprimerVisiteur, verifVisiteur, restaurants, commerces, article, article1;
 	private JPanel panel;
     private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
 	
@@ -69,18 +74,27 @@ public class Window extends JFrame implements ActionListener {
 			parc = new JMenuItem("Liste des Parcs");
 			parc2 = new JMenuItem("Ajouter un Parc");
 			attraction = new JMenuItem("Liste des attractions");
+			attraction2 = new JMenuItem("Ajouter une attraction");
+			attraction3 = new JMenuItem("Supprimer une attraction");
+			attraction4 = new JMenuItem("Rechercher une attraction");
 			attractionxml = new JMenuItem("Liste des attractions format XML");
 			
 			//Les adds
 			menu.add(parc);
 			menu.add(parc2);
 			menu.add(attraction);
+			menu.add(attraction2);
+			menu.add(attraction3);
+			menu.add(attraction4);
 			menu.add(attractionxml);
 			
 			//les actions
 			parc.addActionListener(new ActionParc());
 			parc2.addActionListener(new ActionAjouterParc());
 			attraction.addActionListener(new ActionListeAttraction());
+			attraction2.addActionListener(new ActionAjoutAttraction());
+			attraction3.addActionListener(new ActionSuppAttraction());
+			attraction4.addActionListener(new ActionRechpAttraction());
 			attractionxml.addActionListener(new ActionListeXML());
 			
 			
@@ -245,6 +259,8 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour rechercher un visiteur
 	class ActionRechercheVisiteur implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			pageRecherche = new VueRerchercherVisiteur();
+			setContentPane(pageRecherche);
 			revalidate();
 		}
 	}
@@ -252,6 +268,32 @@ public class Window extends JFrame implements ActionListener {
 	//Action pour lister les articles
 	class ActionListeArticle implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			pageArticle = new VueListeArticle(Controleur.getLesArticles());
+			setContentPane(pageArticle);
+			revalidate();
+		}
+	}
+	
+	class ActionAjoutAttraction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			pageAjoutA = new VueAjoutAttraction();
+			setContentPane(pageAjoutA);
+			revalidate();
+		}
+	}
+	
+	class ActionSuppAttraction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			pageSupp = new VueSuppAttraction();
+			setContentPane(pageSupp);
+			revalidate();
+		}
+	}
+	
+	class ActionRechpAttraction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			pageRechAttraction = new VueRechercheAttraction();
+			setContentPane(pageRechAttraction);
 			revalidate();
 		}
 	}
