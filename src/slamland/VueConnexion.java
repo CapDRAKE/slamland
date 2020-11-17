@@ -15,23 +15,28 @@ public class VueConnexion extends JPanel implements ActionListener {
 	private Window window;
 
 	public VueConnexion() {
-
+		
+		//Label du login
 		userLabel = new JLabel("Login");
 		userLabel.setBounds(25, 10, 80, 25);
 		this.add(userLabel);
-
+		
+		//Pour rentrer le texte
 		userText = new JTextField(20);
 		userText.setBounds(110, 10, 160, 25);
 		this.add(userText);
-
+		
+		//Label du mdp
 		passwordLabel = new JLabel("Mot de passe");
 		passwordLabel.setBounds(25, 40, 80, 25);
 		this.add(passwordLabel);
-
+		
+		//Pour rentrer le mdp
 		passwordText = new JPasswordField(20);
 		passwordText.setBounds(110, 40, 160, 25);
 		this.add(passwordText);
 		
+		//Valider la connexion
 		loginButton = new JButton("Se connecter");
 		loginButton.setBounds(30, 80, 150, 25);
 		this.add(loginButton);
@@ -41,7 +46,8 @@ public class VueConnexion extends JPanel implements ActionListener {
 		setVisible(true);
 
 	}
-
+	
+	//Va s'afficher si l'utilisateur s'est connecté
 	public void connected() {
 		Window.resultat = Window.resultat +1;
 		window = new Window();
@@ -50,7 +56,8 @@ public class VueConnexion extends JPanel implements ActionListener {
 		this.repaint();
 		setVisible(false);
 	}
-
+	
+	//Va s'afficher si l'utilisateur ne peut pas se cnnecter
 	public void notConnected() {
 		notConnected = new JLabel("Compte inconnu");
 		notConnected.setBounds(10, 80, 150, 25);

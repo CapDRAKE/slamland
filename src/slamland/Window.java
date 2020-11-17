@@ -12,9 +12,7 @@ public class Window extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	//Déclaration des pages
-
 	private VueAjouterVisiteurs pageAjouterVisiteurs = new VueAjouterVisiteurs();
-	
 	private VueListeXML pageXML = new VueListeXML();
 	private VueConnexion pageConnexion = new VueConnexion();
 	private VueAjouterParc pageAjouterParc = new VueAjouterParc();
@@ -25,10 +23,15 @@ public class Window extends JFrame implements ActionListener {
 	private VueListeVisiteurs pageListeVisiteurs = new VueListeVisiteurs(Controleur.getLesVisiteurs());
 	private VueParc pageParc = new VueParc(Controleur.getLesParcs());
 	private VueListeAttraction pageAttraction = new VueListeAttraction(Controleur.getLesAttractions());
+	
+	
+	
 	protected static int resultat = 0;
+	
+	//Déclarations des éléments du panel
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
-	private JMenuItem parc, parc2, attraction, attraction2, attractionxml, visiteur, ajoutVisiteur, supprimerVisiteur, restaurants, commerces, article, article1;
+	private JMenuItem parc, parc2, attraction, attraction2, attractionxml, visiteur, ajoutVisiteur, supprimerVisiteur, verifVisiteur, restaurants, commerces, article, article1;
 	private JPanel panel;
     private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
 	
@@ -89,31 +92,38 @@ public class Window extends JFrame implements ActionListener {
 			visiteur = new JMenuItem("Liste des visiteurs");
 			ajoutVisiteur = new JMenuItem("Ajouter des visiteurs");
 			supprimerVisiteur = new JMenuItem("Supprimer des visiteurs");
+			verifVisiteur = new JMenuItem("Rerchercher un visiteur");
 			
 			
 			//Les adds
 			menu2.add(visiteur);
 			menu2.add(ajoutVisiteur);
 			menu2.add(supprimerVisiteur);
+			menu2.add(verifVisiteur);
 			
 			//Les actions
 			visiteur.addActionListener(new ActionListeVisiteurs());
 			ajoutVisiteur.addActionListener(new ActionAjouterVisiteurs());
 			supprimerVisiteur.addActionListener(new ActionSupprimerVisiteurs());
+			verifVisiteur.addActionListener(new ActionRechercheVisiteur());
 			
 			
-			
+			//Menu des commerces
 			menu3 = new JMenu("Commerces");
 			restaurants = new JMenuItem("Liste des restaurants");
 			commerces = new JMenuItem("Liste des commerces");
 			article = new JMenuItem("Liste des articles");
-			article1 = new JMenuItem("Ajouter des articles");
+			
+			//Les actions
 			restaurants.addActionListener(new ActionListeRestaurant());
 			commerces.addActionListener(new ActionListeMagasins());
+			article.addActionListener(new ActionListeArticle());
 			
 			menu3.add(restaurants);
 			menu3.add(commerces);
+			menu3.add(article);
 			
+			//Action pour quitter l'application
 			menuQuitter1.addActionListener(new ActionQuitte());
 			
 			
@@ -228,6 +238,20 @@ public class Window extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			pageXML = new VueListeXML();
 			setContentPane(pageXML);
+			revalidate();
+		}
+	}
+	
+	//Action pour rechercher un visiteur
+	class ActionRechercheVisiteur implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			revalidate();
+		}
+	}
+	
+	//Action pour lister les articles
+	class ActionListeArticle implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
 			revalidate();
 		}
 	}
