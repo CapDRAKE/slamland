@@ -342,5 +342,29 @@ public class Controleur {
 		return XML;
 	}
 	
+	public static boolean verifVisiteur(String nom) {
+		boolean rep = false;
+		
+		connexionBdd();
+		//Déclaration de la requête
+		String req = "SELECT * FROM visiteur WHERE nom = '"+nom+"'";
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			if (rs.next()) {
+				rep = true;
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+		
+		
+		return rep;
+	}
+	
 
 }
