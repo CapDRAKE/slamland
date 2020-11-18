@@ -22,7 +22,7 @@ public class VueListeArticle extends JPanel implements ActionListener {
 		int i=0;
 		while( i < articles.size()) {
 			lesArticles[i][0] = articles.get(i).getNom();
-			lesArticles[i][1] = articles.get(i).getPrix();
+			lesArticles[i][1] = articles.get(i).getPrix() + " €";
 			i++;
 		}
 		listeArticles = new JTable(lesArticles, entetes);

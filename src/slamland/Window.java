@@ -14,6 +14,8 @@ public class Window extends JFrame implements ActionListener {
 	//Déclaration des pages
 	private VueAjouterVisiteurs pageAjouterVisiteurs = new VueAjouterVisiteurs();
 	private VueListeXML pageXML = new VueListeXML();
+	private VueListeJSON pageJSON = new VueListeJSON();
+	private VueListeCSV pageCSV = new VueListeCSV();
 	private VueConnexion pageConnexion = new VueConnexion();
 	private VueAjouterParc pageAjouterParc = new VueAjouterParc();
 	private VueAjouterVisiteurs pageAjoutVisiteur = new VueAjouterVisiteurs();
@@ -36,7 +38,9 @@ public class Window extends JFrame implements ActionListener {
 	//Déclarations des éléments du panel
 	private JMenuBar barre;
 	private JMenu menu, menu2, menu3;
-	private JMenuItem parc, parc2, attraction, attraction2, attraction3, attraction4, attractionxml, visiteur, ajoutVisiteur, supprimerVisiteur, verifVisiteur, restaurants, commerces, article, article1;
+	private JMenuItem parc, parc2, attraction, attraction2, attraction3, attraction4, attractionxml, visiteur
+	, ajoutVisiteur, supprimerVisiteur, verifVisiteur, restaurants, commerces, article, article1, json, csv;
+	
 	private JPanel panel;
     private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
 	
@@ -51,7 +55,7 @@ public class Window extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Affiche la page de connexion tant que le joueur n'est pas co
 		if(resultat == 0) {
-			this.setContentPane(pageConnexion);
+			setContentPane(pageConnexion);
 		}
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -60,7 +64,7 @@ public class Window extends JFrame implements ActionListener {
 		
 		//S'affiche dés lors que l'utilisateur s'est connecté 
 		if(resultat == 1) {
-			panel = new JPanel();
+			//panel = new JPanel();
 			//connected = new JLabel("Connexion réussie");
 			//connected.setBounds(10, 80, 150, 25);
 			//this.add(connected);
@@ -104,6 +108,8 @@ public class Window extends JFrame implements ActionListener {
 			
 			//Sous-menu
 			visiteur = new JMenuItem("Liste des visiteurs");
+			json = new JMenuItem("Liste des visiteurs format JSON");
+			csv = new JMenuItem("Liste des visiteurs format CSV");
 			ajoutVisiteur = new JMenuItem("Ajouter des visiteurs");
 			supprimerVisiteur = new JMenuItem("Supprimer des visiteurs");
 			verifVisiteur = new JMenuItem("Rerchercher un visiteur");
@@ -111,12 +117,16 @@ public class Window extends JFrame implements ActionListener {
 			
 			//Les adds
 			menu2.add(visiteur);
+			menu2.add(json);
+			menu2.add(csv);
 			menu2.add(ajoutVisiteur);
 			menu2.add(supprimerVisiteur);
 			menu2.add(verifVisiteur);
 			
 			//Les actions
 			visiteur.addActionListener(new ActionListeVisiteurs());
+			json.addActionListener(new ActionJSON());
+			csv.addActionListener(new ActionCSV());
 			ajoutVisiteur.addActionListener(new ActionAjouterVisiteurs());
 			supprimerVisiteur.addActionListener(new ActionSupprimerVisiteurs());
 			verifVisiteur.addActionListener(new ActionRechercheVisiteur());
@@ -147,11 +157,12 @@ public class Window extends JFrame implements ActionListener {
 			barre.add(menu3);
 			barre.add(menuQuitter1);
 	
-			panel = new JPanel();
-			panel.add(barre);
+			//panel = new JPanel();
+			this.add(barre);
 			this.setJMenuBar(barre);
 
-			this.getContentPane().add(panel);
+			//this.getContentPane().add(panel);
+			this.setVisible(true);
 		}
 
 		//Affiche la fenêtre
@@ -294,6 +305,22 @@ public class Window extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			pageRechAttraction = new VueRechercheAttraction();
 			setContentPane(pageRechAttraction);
+			revalidate();
+		}
+	}
+	
+	class ActionJSON implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			pageJSON = new VueListeJSON();
+			setContentPane(pageJSON);
+			revalidate();
+		}
+	}
+	
+	class ActionCSV implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			pageCSV = new VueListeCSV();
+			setContentPane(pageCSV);
 			revalidate();
 		}
 	}

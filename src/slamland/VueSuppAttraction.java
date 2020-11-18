@@ -37,14 +37,14 @@ public class VueSuppAttraction extends JPanel implements ActionListener {
 	}
 	
 	public void victoire() {
-		registered = new JLabel("Supprimé");
+		registered = new JLabel("L'attraction a bien été supprimée");
 		registered.setBounds(25, 80, 150, 25);
 		this.add(registered);
 		revalidate();
 	}
 	
 	public void loupe() {
-		registered = new JLabel("Introuvable");
+		registered = new JLabel("Echec de la suppression (verifiez votre entrée)");
 		registered.setBounds(25, 80, 150, 25);
 		this.add(registered);
 		revalidate();

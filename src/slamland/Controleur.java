@@ -18,7 +18,7 @@ public class Controleur {
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connexion =DriverManager.getConnection("jdbc:mysql://127.0.0.1/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
+			connexion =DriverManager.getConnection("jdbc:mysql://172.16.250.9/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "sio", "slam");
 			 st = connexion.createStatement();
 		}
 
@@ -71,7 +71,7 @@ public class Controleur {
 		parc_attractions parc;
 		
 		//Déclaration de la requête
-		String req = "SELECT * FROM Parc_attractions";
+		String req = "SELECT * FROM parc_attractions";
 		
 		//Déclaration de la liste des parcs
 		ArrayList <parc_attractions> parcs;
@@ -189,7 +189,7 @@ public class Controleur {
 		restaurant lesRestaurants;
 		
 		//Déclaration de la requête
-		String req = "SELECT * FROM restaurants";
+		String req = "SELECT nom, nb_tables, capacite FROM restaurants, commerce WHERE commerce.Id_Commerce = restaurants.Id_Commerce";
 		
 		//Déclaration de la liste des parcs
 		ArrayList <restaurant> restaurant;
@@ -199,9 +199,9 @@ public class Controleur {
 			//On execute 
 			rs = st.executeQuery(req);
 			while (rs.next()) {
-				nom = rs.getString(2);
-				capacite = rs.getInt(3);
-				nbTables = rs.getInt(4);
+				nom = rs.getString(1);
+				capacite = rs.getInt(2);
+				nbTables = rs.getInt(3);
 				lesRestaurants = new restaurant(nom, capacite, nbTables);
 				restaurant.add(lesRestaurants);
 			}
@@ -259,7 +259,7 @@ public class Controleur {
 		connexionBdd();
 		boolean rep = false;
 		try {
-			PreparedStatement statement = connexion.prepareStatement("insert into Parc_attractions (nom, ville) values (?, ?);");
+			PreparedStatement statement = connexion.prepareStatement("insert into parc_attractions (nom, ville) values (?, ?);");
 			statement.setString(1,  nom);
 			statement.setString(2,  ville);
 			int nbLignes = statement.executeUpdate();
@@ -340,6 +340,86 @@ public class Controleur {
 		}	
 		
 		return XML;
+	}
+	
+	public static String toJSON() {
+		connexionBdd();
+		String JSON;
+		String nom;
+		String prenom;
+		Date dateNaiss;
+		int j;
+		
+		JSON = "";
+		String req = "SELECT nom, prenom, dateNaiss FROM visiteur";
+		
+		j = 0;
+
+		//Déclaration de la liste des parcs
+		try {
+			//On execute
+			rs = st.executeQuery(req);
+			JSON = "{\n   \"Visiteur\" : [\n";
+			while (rs.next()) {
+				nom = rs.getString(1);
+				prenom = rs.getString(2);
+				dateNaiss = rs.getDate(3);
+				JSON = JSON + "      { \n";
+				JSON = JSON + "         \"Nom \" : \"" + nom + "\"\n";
+				JSON = JSON + "         \"Prenom \" : \"" + prenom + "\"\n";
+				JSON = JSON + "         \"Date naissance\" : \"" + dateNaiss + "\"\n";
+				JSON = JSON + "      } \n";
+				j = j+1;
+			}
+			JSON = JSON + "   ]\n";
+			JSON = JSON + "}";
+			rs.close();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return JSON;
+	}
+	
+	public static String toCSV() {
+		connexionBdd();
+		String CSV;
+		String nom;
+		String prenom;
+		Date dateNaiss;
+		int j;
+		
+		CSV = "";
+		String req = "SELECT nom, prenom, dateNaiss FROM visiteur";
+		
+		j = 0;
+
+		//Déclaration de la liste des parcs
+		try {
+			//On execute
+			rs = st.executeQuery(req);
+			CSV = "{\n   \"Visiteur\" : [\n";
+			while (rs.next()) {
+				nom = rs.getString(1);
+				prenom = rs.getString(2);
+				dateNaiss = rs.getDate(3);
+				CSV = CSV + "      { \n";
+				CSV = CSV + "         \"Nom \" : \"" + nom + "\"\n";
+				CSV = CSV + "         \"Prenom \" : \"" + prenom + "\"\n";
+				CSV = CSV + "         \"Date naissance\" : \"" + dateNaiss + "\"\n";
+				CSV = CSV + "      } \n";
+				j = j+1;
+			}
+			CSV = CSV + "   ]\n";
+			CSV = CSV + "}";
+			rs.close();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		return CSV;
 	}
 	
 	public static boolean verifVisiteur(String nom) {

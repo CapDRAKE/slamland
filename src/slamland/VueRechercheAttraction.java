@@ -26,7 +26,7 @@ public class VueRechercheAttraction extends JPanel implements ActionListener {
 		userText.setBounds(110, 10, 160, 25);
 		this.add(userText);
 		
-		selectButton = new JButton("Rechercher");
+		selectButton = new JButton("Rechercher l'attraction");
 		selectButton.setBounds(30, 80, 150, 25);
 		this.add(selectButton);
 		
@@ -37,14 +37,14 @@ public class VueRechercheAttraction extends JPanel implements ActionListener {
 	}
 	
 	public void victoire() {
-		registered = new JLabel("Trouvé");
+		registered = new JLabel("Attraction trouvée");
 		registered.setBounds(25, 80, 150, 25);
 		this.add(registered);
 		revalidate();
 	}
 	
 	public void loupe() {
-		registered = new JLabel("Introuvable");
+		registered = new JLabel("Attraction introuvable");
 		registered.setBounds(25, 80, 150, 25);
 		this.add(registered);
 		revalidate();

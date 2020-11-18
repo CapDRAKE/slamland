@@ -21,7 +21,7 @@ public class VueAjoutAttraction extends JPanel implements ActionListener {
 		userLabel.setBounds(29, 100, 80, 25);
 		this.add(userLabel);
 		
-		userText = new JTextField(20);
+		userText = new JTextField(40);
 		userText.setBounds(110, 10, 160, 25);
 		this.add(userText);
 		
@@ -29,7 +29,7 @@ public class VueAjoutAttraction extends JPanel implements ActionListener {
 		userLabel.setBounds(29, 100, 80, 25);
 		this.add(userLabel);
 		
-		userText2 = new JTextField(20);
+		userText2 = new JTextField(45);
 		userText2.setBounds(110, 10, 160, 25);
 		this.add(userText2);
 		
@@ -37,7 +37,7 @@ public class VueAjoutAttraction extends JPanel implements ActionListener {
 		userLabel.setBounds(29, 100, 80, 25);
 		this.add(userLabel);
 		
-		userText3 = new JTextField(20);
+		userText3 = new JTextField(10);
 		userText3.setBounds(110, 10, 160, 25);
 		this.add(userText3);
 		
@@ -45,7 +45,7 @@ public class VueAjoutAttraction extends JPanel implements ActionListener {
 		userLabel.setBounds(29, 100, 80, 25);
 		this.add(userLabel);
 		
-		userText4 = new JTextField(20);
+		userText4 = new JTextField(10);
 		userText4.setBounds(110, 10, 160, 25);
 		this.add(userText4);
 		
@@ -53,7 +53,7 @@ public class VueAjoutAttraction extends JPanel implements ActionListener {
 		userLabel.setBounds(29, 100, 80, 25);
 		this.add(userLabel);
 		
-		userText5 = new JTextField(20);
+		userText5 = new JTextField(10);
 		userText5.setBounds(110, 10, 160, 25);
 		this.add(userText5);
 		
