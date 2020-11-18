@@ -3,7 +3,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-
+/**
+ @author ramse
+ les fonctions
+ */
 public class Controleur {
 	private static Connection connexion;
 	private static Statement st;
@@ -18,7 +21,7 @@ public class Controleur {
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connexion =DriverManager.getConnection("jdbc:mysql://172.16.250.9/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "sio", "slam");
+			connexion =DriverManager.getConnection("jdbc:mysql://127.0.0.1/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
 			 st = connexion.createStatement();
 		}
 
@@ -60,6 +63,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthode pour les parcs
 	public static ArrayList<parc_attractions> getLesParcs() {
 		connexionBdd();
 		
@@ -97,6 +101,7 @@ public class Controleur {
 
 	}
 	
+	//Méthode pour les attractions
 	public static ArrayList<attractions> getLesAttractions() {
 		connexionBdd();
 		
@@ -138,6 +143,8 @@ public class Controleur {
 
 	}
 	
+	
+	//Méthode pour avoir les visiteurs
 	public static ArrayList<visiteur> getLesVisiteurs() {
 		connexionBdd();
 		
@@ -177,6 +184,8 @@ public class Controleur {
 
 	}
 	
+	
+	//Méthode pour avoir les réstaurants
 	public static ArrayList<restaurant> getLesRestaurants() {
 		connexionBdd();
 		
@@ -189,7 +198,7 @@ public class Controleur {
 		restaurant lesRestaurants;
 		
 		//Déclaration de la requête
-		String req = "SELECT nom, nb_tables, capacite FROM restaurants, commerce WHERE commerce.Id_Commerce = restaurants.Id_Commerce";
+		String req = "SELECT commerce.nom, nb_tables, capacite FROM restaurants, commerce WHERE commerce.Id_Commerce = restaurants.Id_Commerce";
 		
 		//Déclaration de la liste des parcs
 		ArrayList <restaurant> restaurant;
@@ -216,6 +225,7 @@ public class Controleur {
 
 	}
 	
+	//Liste des magasins
 	public static ArrayList<magasin> getLesMagasins() {
 		connexionBdd();
 		
@@ -271,6 +281,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthode pour ajouter le visiteur
 	public static boolean ajouterVisiteur(String nom, String prenom,String uneDate) {
 		connexionBdd();
 		boolean rep = false;
@@ -288,6 +299,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthode pour supprimer le visiteur
 	public static boolean supprimerVisiteur(String nom) {
 		connexionBdd();
 		boolean rep = false;
@@ -295,7 +307,9 @@ public class Controleur {
 			PreparedStatement statement = connexion.prepareStatement("DELETE FROM visiteur WHERE nom = ?;");
 			statement.setString(1,  nom);
 			int nbLignes = statement.executeUpdate();
-			rep = true;
+			if(nbLignes != 0) {
+				rep = true;
+			}
 			deconnexionBdd();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -303,6 +317,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthode pour retourner un format XML
 	public static String toXML() {
 		connexionBdd();
 		String XML;
@@ -342,6 +357,7 @@ public class Controleur {
 		return XML;
 	}
 	
+	//Format JSON
 	public static String toJSON() {
 		connexionBdd();
 		String JSON;
@@ -382,6 +398,7 @@ public class Controleur {
 		return JSON;
 	}
 	
+	//Format CSV
 	public static String toCSV() {
 		connexionBdd();
 		String CSV;
@@ -399,29 +416,25 @@ public class Controleur {
 		try {
 			//On execute
 			rs = st.executeQuery(req);
-			CSV = "{\n   \"Visiteur\" : [\n";
+			CSV = "Nom,Prenom,Date naissance\n";
 			while (rs.next()) {
 				nom = rs.getString(1);
 				prenom = rs.getString(2);
 				dateNaiss = rs.getDate(3);
-				CSV = CSV + "      { \n";
-				CSV = CSV + "         \"Nom \" : \"" + nom + "\"\n";
-				CSV = CSV + "         \"Prenom \" : \"" + prenom + "\"\n";
-				CSV = CSV + "         \"Date naissance\" : \"" + dateNaiss + "\"\n";
-				CSV = CSV + "      } \n";
-				j = j+1;
+				CSV = CSV + nom + ",";
+				CSV = CSV + prenom + ",";
+				CSV = CSV + dateNaiss + "\n";
 			}
-			CSV = CSV + "   ]\n";
-			CSV = CSV + "}";
 			rs.close();
 		} 
 		catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}	
 		
 		return CSV;
 	}
 	
+	//Format qui vérifie si le visiteur existe 
 	public static boolean verifVisiteur(String nom) {
 		boolean rep = false;
 		
@@ -446,6 +459,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Retourne la liste des articles
 	public static ArrayList<article> getLesArticles() {
 		connexionBdd();
 		
@@ -483,6 +497,7 @@ public class Controleur {
 
 	}
 	
+	//Vérifie si le parc existe
 	public static boolean verifParc(String nom) {
 		boolean rep = false;
 		
@@ -499,7 +514,7 @@ public class Controleur {
 			rs.close();
 		}
 		catch(SQLException erreur) {
-			System.out.println(erreur);
+			//System.out.println(erreur);
 		}
 		deconnexionBdd();
 		
@@ -507,6 +522,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthode pour trouver le parc
 	public static int trouverParc(String unNom) {
 		int id = 0;
 		
@@ -530,18 +546,19 @@ public class Controleur {
 		return id;
 	}
 	
+	//Méthode pour ajouter une attraction
 	public static boolean ajouterAttraction(String nom, String capacite, String duree, String prix, int id) {
 		connexionBdd();
 		boolean rep = false;
 		try {
 			PreparedStatement statement = connexion.prepareStatement("insert into attraction (nom, capacite_max, duree, prix, Id_Parc_attractions) values (?, ?, ?, ?, ?);");
-			statement.setString(1,  nom);
-			statement.setString(2,  capacite);
+			statement.setString(1, nom);
+			statement.setString(2, capacite);
 			statement.setString(3, duree);
 			statement.setString(4, prix);
 			statement.setInt(5, id);
 			int nbLignes = statement.executeUpdate();
-			rep = true;
+			rep = true; 
 			deconnexionBdd();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -549,6 +566,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthide pour trouver une attraction
 	public static boolean verifAttraction(String nom) {
 		boolean rep = false;
 		
@@ -573,6 +591,7 @@ public class Controleur {
 		return rep;
 	}
 	
+	//Méthode pour supprimer une attraction
 	public static boolean supprimerAttraction(String nom) {
 		connexionBdd();
 		boolean rep = false;
@@ -588,6 +607,34 @@ public class Controleur {
 			e.printStackTrace();
 		}
 		return rep;
+	}
+	
+	//Méthode pour calculer le CA d'un parc donné en paramètre
+	/**
+	 @nom
+	 */
+	public static int calculerCA(String nom) {
+		int total = 0;
+		
+		connexionBdd();
+		//Déclaration de la requête
+		String req = "SELECT SUM(prix) FROM parc_attractions, attraction, effectuer WHERE parc_attractions.Id_Parc_attractions = attraction.Id_Parc_attractions AND attraction.Id_Attraction = effectuer.Id_Attraction AND parc_attractions.nom = '"+nom+"'";
+		
+		try {
+			//On execute 
+			rs = st.executeQuery(req);
+			while (rs.next()) {
+				total = rs.getInt(1);
+				System.out.println(total);
+			}
+			rs.close();
+		}
+		catch(SQLException erreur) {
+			System.out.println(erreur);
+		}
+		deconnexionBdd();
+		
+		return total;
 	}
 	
 

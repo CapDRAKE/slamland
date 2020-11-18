@@ -1,5 +1,9 @@
 package slamland;
-
+/**
+ @author ramse
+ @param Ville
+ @param nom
+ */
 public class parc_attractions {
 	private String Ville;
 	private String Nom;

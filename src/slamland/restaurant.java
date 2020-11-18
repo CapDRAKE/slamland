@@ -1,5 +1,10 @@
 package slamland;
-
+/**
+ @author ramse
+ @param nom
+ @param nbTables
+ @param capacite
+ */
 public class restaurant {
 		private String nom;
 		private int nbTables;

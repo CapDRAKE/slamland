@@ -1,5 +1,9 @@
 package slamland;
-
+/**
+ @author ramse
+ @param nom
+ @param prix
+ */
 public class article {
 		private String nom;
 		private int prix;

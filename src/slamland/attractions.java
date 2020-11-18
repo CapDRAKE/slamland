@@ -1,5 +1,11 @@
 package slamland;
-
+/**
+ @author ramse
+ @param nom
+ @param capacite
+ @param duree
+ @param prix
+ */
 public class attractions {
 		private String nom;
 		private int capacite;

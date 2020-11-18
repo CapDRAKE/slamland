@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 
 public class VueConnexion extends JPanel implements ActionListener {
 	/**
-	 * 
+	 @author ramse
+	 Vue connexion
 	 */
+	
+	//Variables
 	private static final long serialVersionUID = 1L;
 	private JTextField userText;
 	private JButton loginButton;

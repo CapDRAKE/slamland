@@ -1,7 +1,12 @@
 package slamland;
 
 import java.sql.Date;
-
+/**
+ @author ramse
+ @param nom
+ @param prenom
+ @param dateNaiss
+ */
 public class visiteur {
 		private String nom;
 		private String prenom;

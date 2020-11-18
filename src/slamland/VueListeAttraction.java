@@ -8,18 +8,24 @@ import java.util.ArrayList;
 
 public class VueListeAttraction extends JPanel implements ActionListener {
 	/**
-	 * 
+	 @author ramse
+	 Vue liste attraction
 	 */
+	//Variables
 	private static final long serialVersionUID = 1L;
 	private static JTable listeParc;
 	private int i;
 	private JScrollPane scrollpane;
 
 	public VueListeAttraction(ArrayList <attractions> attractions) {
+		
+		//Déclaration du tableau
 		Object [][] lesAttractions = new Object[20][4];
 		String[] entetes = {"Nom attraction", "Capacitée max", "Duree", "Prix"};
 		
 		i=0;
+		
+		//On ajoute les éléments dans le tableau
 		while( i < attractions.size()) {
 			lesAttractions[i][0] = attractions.get(i).getNom();
 			lesAttractions[i][1] = attractions.get(i).getCapacite();
@@ -27,6 +33,7 @@ public class VueListeAttraction extends JPanel implements ActionListener {
 			lesAttractions[i][3] = attractions.get(i).getPrix();
 			i++;
 		}
+		//On ajoute le tout
 		listeParc = new JTable(lesAttractions, entetes);
 		scrollpane = new JScrollPane(listeParc);
 		

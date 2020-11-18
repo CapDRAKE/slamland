@@ -8,7 +8,8 @@ import java.text.SimpleDateFormat;
 
 public class VueSupprimerVisiteur extends JPanel implements ActionListener {
 	/**
-	 * 
+	 @author ramse
+	 Vue supprimer visiteur
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField userText, userText2, userText3;
@@ -16,15 +17,18 @@ public class VueSupprimerVisiteur extends JPanel implements ActionListener {
 	private JLabel userLabel, userLabel2, registered;
 
 	public VueSupprimerVisiteur() {
-
+		
+		//Dénomination
 		userLabel = new JLabel("Nom du visiteur à supprimer:");
 		userLabel.setBounds(29, 100, 80, 25);
 		this.add(userLabel);
 		
+		//Insertion
 		userText = new JTextField(40);
 		userText.setBounds(110, 100, 160, 25);
 		this.add(userText);
 		
+		//Boutton
 		selectButton = new JButton("Supprimer");
 		//selectButton.setBounds(30, 80, 150, 25);
 		this.add(selectButton);
@@ -35,6 +39,7 @@ public class VueSupprimerVisiteur extends JPanel implements ActionListener {
 		
 	}
 	
+	//S'affiche si la réussi
 	public void victoire() {
 		registered = new JLabel("Suppression  réussie");
 		registered.setBounds(25, 80, 150, 25);
@@ -42,6 +47,7 @@ public class VueSupprimerVisiteur extends JPanel implements ActionListener {
 		revalidate();
 	}
 	
+	//S'affiche si echec
 	public void loupe() {
 		registered = new JLabel("Echec de la suppression (verifiez votre entrée)");
 		registered.setBounds(25, 80, 150, 25);

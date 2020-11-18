@@ -7,9 +7,20 @@ import javax.swing.*;
 public class Window extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 Parmètre de la fenêtre
 	 */
 	private static final long serialVersionUID = 1L;
+	protected static int resultat = 0;
+	
+	//Déclarations des éléments du panel
+	private JMenuBar barre;
+	private JMenu menu, menu2, menu3;
+	private JMenuItem parc, parc2, attraction, attraction2, attraction3, attraction4, attractionxml, visiteur
+	, ajoutVisiteur, supprimerVisiteur, verifVisiteur, restaurants, commerces, article, article1, json, csv, ca;
+	
+	//Déclaration du panel
+	private JPanel panel;
+    private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
 	
 	//Déclaration des pages
 	private VueAjouterVisiteurs pageAjouterVisiteurs = new VueAjouterVisiteurs();
@@ -30,19 +41,11 @@ public class Window extends JFrame implements ActionListener {
 	private VueAjoutAttraction pageAjoutA = new VueAjoutAttraction();
 	private VueSuppAttraction pageSupp = new VueSuppAttraction();
 	private VueRechercheAttraction pageRechAttraction = new VueRechercheAttraction();
+	private VueCA pageCA = new VueCA();
 	
 	
 	
-	protected static int resultat = 0;
-	
-	//Déclarations des éléments du panel
-	private JMenuBar barre;
-	private JMenu menu, menu2, menu3;
-	private JMenuItem parc, parc2, attraction, attraction2, attraction3, attraction4, attractionxml, visiteur
-	, ajoutVisiteur, supprimerVisiteur, verifVisiteur, restaurants, commerces, article, article1, json, csv;
-	
-	private JPanel panel;
-    private JMenuItem menuQuitter1 = new JMenuItem("Quitter");
+
 	
 	//Paramètres des pages
 	public Window() {
@@ -82,6 +85,8 @@ public class Window extends JFrame implements ActionListener {
 			attraction3 = new JMenuItem("Supprimer une attraction");
 			attraction4 = new JMenuItem("Rechercher une attraction");
 			attractionxml = new JMenuItem("Liste des attractions format XML");
+			ca = new JMenuItem("Chiffre d'affaire");
+			
 			
 			//Les adds
 			menu.add(parc);
@@ -91,6 +96,7 @@ public class Window extends JFrame implements ActionListener {
 			menu.add(attraction3);
 			menu.add(attraction4);
 			menu.add(attractionxml);
+			menu.add(ca);
 			
 			//les actions
 			parc.addActionListener(new ActionParc());
@@ -100,6 +106,7 @@ public class Window extends JFrame implements ActionListener {
 			attraction3.addActionListener(new ActionSuppAttraction());
 			attraction4.addActionListener(new ActionRechpAttraction());
 			attractionxml.addActionListener(new ActionListeXML());
+			ca.addActionListener(new ActionCA());
 			
 			
 			//Menu pour la gestion des visiteurs
@@ -285,6 +292,7 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 	
+	//Action pour ajouter une attraction
 	class ActionAjoutAttraction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			pageAjoutA = new VueAjoutAttraction();
@@ -293,6 +301,7 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 	
+	//Action pour supprimer une attraction
 	class ActionSuppAttraction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			pageSupp = new VueSuppAttraction();
@@ -301,6 +310,7 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 	
+	//Action pour rechercher une attraction
 	class ActionRechpAttraction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			pageRechAttraction = new VueRechercheAttraction();
@@ -309,6 +319,7 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 	
+	//Action JSON
 	class ActionJSON implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			pageJSON = new VueListeJSON();
@@ -317,10 +328,20 @@ public class Window extends JFrame implements ActionListener {
 		}
 	}
 	
+	//Action CSV
 	class ActionCSV implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			pageCSV = new VueListeCSV();
 			setContentPane(pageCSV);
+			revalidate();
+		}
+	}
+	
+	//Action pour le CA
+	class ActionCA implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			pageCA= new VueCA();
+			setContentPane(pageCA);
 			revalidate();
 		}
 	}

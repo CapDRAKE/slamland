@@ -7,10 +7,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VueListeXML extends JPanel implements ActionListener {
+	//Variable
 		private JTextArea xml;
-		
+		/**
+		 @author ramse
+		 Vue XML
+		 */
 		public VueListeXML() {
-			
+			//Affichage du format XML
 			xml = new JTextArea(Controleur.toXML());
 			this.add(xml);
 			
