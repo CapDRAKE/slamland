@@ -45,9 +45,11 @@ public class Controleur {
 	public static boolean connexion(String login, String mdp) {
 		boolean rep = false;
 		connexionBdd();
+		//UPDATE visiteur 
+		//SET mdp = md5(mdp)
 		//PreparedStatement statement = connexion.prepareStatement("select login, mdp from Utilisateurs where login = ? and mdp = ?;");
 		try {
-			statement = connexion.prepareStatement("SELECT login, mdp FROM Utilisateur WHERE login = ? AND mdp = ?;");
+			statement = connexion.prepareStatement("SELECT login, mdp FROM Utilisateur WHERE login = ? AND mdp = md5(?);");
 			statement.setString(1, login);
 			statement.setString(2, mdp);
 			res = statement.executeQuery();
