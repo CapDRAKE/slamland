@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
  les fonctions
  */
 public class Controleur {
+	
+	//Les variables
 	private static Connection connexion;
 	private static Statement st;
 	private static ResultSet rs;
