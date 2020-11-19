@@ -12,6 +12,7 @@ public class visiteur {
 		private String prenom;
 		private Date dateNaiss;
 		
+		//Constructeur
 		public visiteur(String unNom, String unPrenom, Date uneDate) {
 			this.nom = unNom;
 			this.prenom = unPrenom;
