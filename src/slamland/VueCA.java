@@ -37,7 +37,7 @@ public class VueCA extends JPanel implements ActionListener {
 	
 	//S'affiche s'il y a un chiffre d'affaire
 	public void victoire(int CA) {
-		registered = new JLabel("Chiffre d'affaire" + CA);
+		registered = new JLabel("Chiffre d'affaire : " + CA);
 		registered.setBounds(25, 80, 150, 25);
 		this.add(registered);
 		revalidate();

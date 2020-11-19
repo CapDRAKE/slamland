@@ -67,6 +67,14 @@ public class VueAjouterVisiteurs extends JPanel implements ActionListener {
 		revalidate();
 	}
 	
+	//Si pas ajouté
+	public void loupe() {
+		registered = new JLabel("Impossible d'ajouter (vérifiez votre saisie)");
+		registered.setBounds(25, 80, 150, 25);
+		this.add(registered);
+		revalidate();
+	}
+	
 	//Si l'utilisateur appuie sur le boutton
 	public void actionPerformed(ActionEvent e){
 		if (e.getSource() == selectButton) {
@@ -76,6 +84,9 @@ public class VueAjouterVisiteurs extends JPanel implements ActionListener {
 			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
 			if (Controleur.ajouterVisiteur(nom, prenom, date)) {
 				victoire();
+			}
+			else {
+				loupe();
 			}
 			this.revalidate();
 		}

@@ -21,7 +21,7 @@ public class Controleur {
 	public static void connexionBdd() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connexion =DriverManager.getConnection("jdbc:mysql://127.0.0.1/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "");
+			connexion =DriverManager.getConnection("jdbc:mysql://172.16.250.9/slamland?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "sio", "slam");
 			 st = connexion.createStatement();
 		}
 
@@ -49,7 +49,7 @@ public class Controleur {
 		//SET mdp = md5(mdp)
 		//PreparedStatement statement = connexion.prepareStatement("select login, mdp from Utilisateurs where login = ? and mdp = ?;");
 		try {
-			statement = connexion.prepareStatement("SELECT login, mdp FROM Utilisateur WHERE login = ? AND mdp = md5(?);");
+			statement = connexion.prepareStatement("SELECT login, mdp FROM utilisateur WHERE login = ? AND mdp = md5(?);");
 			statement.setString(1, login);
 			statement.setString(2, mdp);
 			res = statement.executeQuery();
@@ -344,10 +344,10 @@ public class Controleur {
 				prix = rs.getInt(5);
 
 				XML = XML + "\n<Parc>" + nom + "\n";
-				XML = XML + "<Nom>" + nomAttraction + "</Nom>\n";
-				XML = XML + "<Capacite>" + capacite + "</Capacite>\n";
-				XML = XML + "<Duree>" + duree + "</Duree>\n";
-				XML = XML + "<Prix>" + prix + "</Prix>\n";
+				XML = XML + "    <Nom>" + nomAttraction + "</Nom>\n";
+				XML = XML + "    <Capacite>" + capacite + "</Capacite>\n";
+				XML = XML + "    <Duree>" + duree + "</Duree>\n";
+				XML = XML + "    <Prix>" + prix + "</Prix>\n";
 				XML = XML + "</Parc>";
 			}
 			rs.close();
